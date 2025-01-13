@@ -1,0 +1,151 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+  <meta charset="UTF-8">\
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+  <title>Game Profit Calculator</title>\
+  <style>\
+    body \{\
+      font-family: Arial, sans-serif;\
+      background-color: #000;\
+      color: #fff;\
+      margin: 0;\
+      padding: 0;\
+    \}\
+    .container \{\
+      max-width: 600px;\
+      margin: 20px auto;\
+      padding: 20px;\
+      background-color: #1a1a1a;\
+      border-radius: 8px;\
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);\
+    \}\
+    h1 \{\
+      color: #ff0053;\
+      text-align: center;\
+    \}\
+    .input-group \{\
+      margin-bottom: 15px;\
+    \}\
+    .input-group label \{\
+      display: block;\
+      margin-bottom: 5px;\
+      color: #ff0053;\
+    \}\
+    .input-group input \{\
+      width: 100%;\
+      padding: 10px;\
+      background-color: #333;\
+      border: 1px solid #555;\
+      border-radius: 4px;\
+      color: #fff;\
+    \}\
+    .btn \{\
+      display: block;\
+      width: 100%;\
+      padding: 10px;\
+      background-color: #ff0053;\
+      border: none;\
+      border-radius: 4px;\
+      color: #fff;\
+      font-size: 16px;\
+      cursor: pointer;\
+      margin-top: 10px;\
+    \}\
+    .btn:hover \{\
+      background-color: #e0004a;\
+    \}\
+    .results \{\
+      margin-top: 20px;\
+      padding: 10px;\
+      background-color: #333;\
+      border-radius: 4px;\
+    \}\
+    .results p \{\
+      margin: 5px 0;\
+      color: #fff;\
+    \}\
+  </style>\
+</head>\
+<body>\
+  <div class="container">\
+    <h1>Game Profit Calculator</h1>\
+    <div class="input-group">\
+      <label for="game-price">Game Price (\'a3/$/\'80):</label>\
+      <input type="number" id="game-price" step="0.01" placeholder="e.g., 19.99">\
+    </div>\
+    <div class="input-group">\
+      <label for="units-sold">Units Sold:</label>\
+      <input type="number" id="units-sold" placeholder="e.g., 1000">\
+    </div>\
+    <div class="input-group">\
+      <label for="publisher-fee">Publisher Fee (%):</label>\
+      <input type="number" id="publisher-fee" step="0.01" placeholder="e.g., 20">\
+    </div>\
+    <div class="input-group">\
+      <label for="platform-fee">Platform Fee (%):</label>\
+      <input type="number" id="platform-fee" step="0.01" placeholder="e.g., 30">\
+    </div>\
+    <div class="input-group">\
+      <label for="engine-royalty">Engine Royalty (%):</label>\
+      <input type="number" id="engine-royalty" step="0.01" placeholder="e.g., 5">\
+    </div>\
+    <div class="input-group">\
+      <label for="marketing-costs">Marketing Costs (\'a3/$/\'80):</label>\
+      <input type="number" id="marketing-costs" step="0.01" placeholder="e.g., 5000">\
+    </div>\
+    <div class="input-group">\
+      <label for="dev-costs">Development Costs (\'a3/$/\'80):</label>\
+      <input type="number" id="dev-costs" step="0.01" placeholder="e.g., 20000">\
+    </div>\
+    <div class="input-group">\
+      <label for="tax-rate">Tax Rate (%):</label>\
+      <input type="number" id="tax-rate" step="0.01" placeholder="e.g., 20">\
+    </div>\
+    <button class="btn" onclick="calculateProfit()">Calculate</button>\
+\
+    <div class="results" id="results">\
+      <p>Gross Revenue: <span id="gross-revenue">-</span></p>\
+      <p>Total Fees: <span id="total-fees">-</span></p>\
+      <p>Net Revenue: <span id="net-revenue">-</span></p>\
+      <p>Profit Margin: <span id="profit-margin">-</span></p>\
+      <p>Breakeven Analysis: <span id="breakeven">-</span></p>\
+    </div>\
+  </div>\
+\
+  <script>\
+    function calculateProfit() \{\
+      const gamePrice = parseFloat(document.getElementById('game-price').value) || 0;\
+      const unitsSold = parseInt(document.getElementById('units-sold').value) || 0;\
+      const publisherFee = parseFloat(document.getElementById('publisher-fee').value) / 100 || 0;\
+      const platformFee = parseFloat(document.getElementById('platform-fee').value) / 100 || 0;\
+      const engineRoyalty = parseFloat(document.getElementById('engine-royalty').value) / 100 || 0;\
+      const marketingCosts = parseFloat(document.getElementById('marketing-costs').value) || 0;\
+      const devCosts = parseFloat(document.getElementById('dev-costs').value) || 0;\
+      const taxRate = parseFloat(document.getElementById('tax-rate').value) / 100 || 0;\
+\
+      const grossRevenue = gamePrice * unitsSold;\
+      const totalFees = grossRevenue * (publisherFee + platformFee + engineRoyalty);\
+      const netRevenue = grossRevenue - totalFees - (grossRevenue * taxRate);\
+      const profitMargin = ((netRevenue - marketingCosts - devCosts) / grossRevenue) * 100;\
+      const breakeven = (marketingCosts + devCosts) / gamePrice;\
+\
+      document.getElementById('gross-revenue').textContent = grossRevenue.toFixed(2);\
+      document.getElementById('total-fees').textContent = totalFees.toFixed(2);\
+      document.getElementById('net-revenue').textContent = netRevenue.toFixed(2);\
+      document.getElementById('profit-margin').textContent = profitMargin.toFixed(2) + '%';\
+      document.getElementById('breakeven').textContent = Math.ceil(breakeven) + ' units';\
+    \}\
+  </script>\
+</body>\
+</html>\
+}
